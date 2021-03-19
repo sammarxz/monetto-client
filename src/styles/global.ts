@@ -46,6 +46,12 @@ const GlobalStyle = createGlobalStyle`
     opacity: 0.6;
     cursor: disabled;
   }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4%;
+  }
 `
 
 export { GlobalStyle }

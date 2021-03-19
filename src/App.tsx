@@ -1,9 +1,15 @@
 import { GlobalStyle } from './styles/global'
+import { Routes } from './routes'
+
+import { Header } from './components'
 
 const App = (): JSX.Element => (
   <>
     <GlobalStyle />
-    <h1>Hello World</h1>
+    <div className="container">
+      <Header />
+      <Routes />
+    </div>
   </>
 )
 
