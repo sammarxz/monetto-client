@@ -38,10 +38,22 @@ const Transaction: React.FC<TransactionProps> = ({
         <Box>{renderIcon()}</Box>
         <S.Heading>
           <h3>{title}</h3>
-          <h4>{createdAt}</h4>
+          <h4>
+            {new Intl.DateTimeFormat('pt-BR', {
+              weekday: 'short',
+              month: 'long',
+              day: '2-digit',
+              year: 'numeric'
+            }).format(new Date(createdAt))}
+          </h4>
         </S.Heading>
       </S.Info>
-      <S.Value>{value}</S.Value>
+      <S.Value>
+        {new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        }).format(value)}
+      </S.Value>
     </S.Wrapper>
   )
 }
