@@ -4,20 +4,24 @@ import { Box } from '../'
 
 import * as S from './styles'
 
-type TransactionProps = {
+export type TransactionProps = {
+  id: number
   title: string
-  date: string
-  category: string
-  value: string
+  value: number
   type: string
+  category: string
+  createdAt: string
+  className?: string
 }
 
 const Transaction: React.FC<TransactionProps> = ({
+  id,
   title,
-  date,
+  createdAt,
   category,
   value,
-  type
+  type,
+  className
 }) => {
   const renderIcon = () => {
     switch (category) {
@@ -29,12 +33,12 @@ const Transaction: React.FC<TransactionProps> = ({
   }
 
   return (
-    <S.Wrapper className="d--flex ai--start jc--space-between">
+    <S.Wrapper className={`d--flex ai--start jc--space-between ${className}`}>
       <S.Info className="d--flex ai--center">
         <Box>{renderIcon()}</Box>
         <S.Heading>
           <h3>{title}</h3>
-          <h4>{date}</h4>
+          <h4>{createdAt}</h4>
         </S.Heading>
       </S.Info>
       <S.Value>{value}</S.Value>

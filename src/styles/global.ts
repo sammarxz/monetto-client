@@ -155,6 +155,10 @@ const GlobalStyle = createGlobalStyle`
     margin-bottom: 24px;
   }
 
+  .mb--32 {
+    margin-bottom: 32px;
+  }
+
   .fs--small {
     font-size: 1rem;
   }
@@ -169,6 +173,22 @@ const GlobalStyle = createGlobalStyle`
 
   .fs--large {
     font-size: 1.8rem;
+  }
+
+  .fw--regular {
+    font-weight: 400;
+  }
+
+  .fw--medium {
+    font-weight: 500;
+  }
+
+  .fw--semibold {
+    font-weight: 600;
+  }
+
+  .fw--bold {
+    font-weight: 700;
   }
 `
 

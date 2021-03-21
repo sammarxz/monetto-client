@@ -5,6 +5,8 @@ import { FiMinus, FiPlus } from 'react-icons/fi'
 
 import { Input, Button } from '../'
 
+import { api } from '../../services/api'
+
 import * as S from './styles'
 
 Modal.setAppElement('#root')
@@ -30,6 +32,15 @@ function NewTransactionModal({
 
   const handleCreateNewTransaction = (e: React.FormEvent) => {
     e.preventDefault()
+
+    const data = {
+      title,
+      value,
+      category,
+      type
+    }
+
+    api.post('/transactions', data)
   }
 
   return (

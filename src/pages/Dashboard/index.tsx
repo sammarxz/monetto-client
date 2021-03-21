@@ -17,13 +17,18 @@ import {
   NewTransactionModal
 } from '../../components'
 
+import { TransactionProps } from '../../components/Transaction'
+
 import * as S from './styles'
 
 function Dashboard() {
+  const [transactions, setTransactions] = useState<TransactionProps[]>([])
   const [isModalTransactionOpen, setModalTransactionOpen] = useState(false)
 
   useEffect(() => {
-    api.get('/transactions').then((response) => console.log(response.data))
+    api
+      .get('/transactions')
+      .then((response) => setTransactions(response.data.transactions))
   }, [])
 
   function handleOpenNewTransactionModal() {
@@ -47,14 +52,14 @@ function Dashboard() {
           </Input>
         </S.Form>
         <Box>
-          <span className="d--flex ai--center">
+          <span className="d--flex ai--center fw--medium">
             <FiArrowDownLeft className="c--green" />
             Entrada:
           </span>
           <h3>R$ 4.500,00</h3>
         </Box>
         <Box>
-          <span className="d--flex ai--center">
+          <span className="d--flex ai--center fw--medium">
             <FiArrowUpRight className="c--neutral-900" />
             Saída:
           </span>
@@ -66,13 +71,18 @@ function Dashboard() {
         </Button>
       </S.Infos>
       <S.Transactions>
-        <Transaction
-          title="Comida para Vivi"
-          date="19 de Março, 2021"
-          category="pet"
-          value="- R$ 12,00"
-          type="outome"
-        />
+        {transactions.map(({ id, title, category, value, type, createdAt }) => (
+          <Transaction
+            key={id}
+            id={id}
+            title={title}
+            createdAt={createdAt}
+            category={category}
+            value={value}
+            type={type}
+            className="mb--32"
+          />
+        ))}
       </S.Transactions>
       <NewTransactionModal
         isOpen={isModalTransactionOpen}
