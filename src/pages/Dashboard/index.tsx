@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Modal from 'react-modal'
 
 import { api } from '../../services/api'
 
@@ -10,11 +9,15 @@ import {
   FiSearch
 } from 'react-icons/fi'
 
-import { Box, Button, Input, Transaction } from '../../components'
+import {
+  Box,
+  Button,
+  Input,
+  Transaction,
+  NewTransactionModal
+} from '../../components'
 
 import * as S from './styles'
-
-Modal.setAppElement('#root')
 
 function Dashboard() {
   const [isModalTransactionOpen, setModalTransactionOpen] = useState(false)
@@ -71,12 +74,10 @@ function Dashboard() {
           type="outome"
         />
       </S.Transactions>
-      <Modal
+      <NewTransactionModal
         isOpen={isModalTransactionOpen}
         onRequestClose={handleCloseNewTransactionModal}
-      >
-        <h2>Cadastrar Transação</h2>
-      </Modal>
+      />
     </S.Wrapper>
   )
 }
