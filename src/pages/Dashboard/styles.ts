@@ -8,7 +8,7 @@ const Balance = styled.h1`
   font-size: 3.6rem;
 
   span {
-    color: var(--color-neutral-800);
+    color: var(--color-neutral-900);
     display: block;
     font-size: 1rem;
     font-weight: 400;

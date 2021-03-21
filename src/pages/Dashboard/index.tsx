@@ -43,7 +43,7 @@ function Dashboard() {
       <S.Infos>
         <S.Form>
           <Input name="search" type="text" placeholder="Buscar...">
-            <FiSearch />
+            <FiSearch className="c--neutral-700" />
           </Input>
         </S.Form>
         <Box>

@@ -2,14 +2,13 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
   :root {
-    --color-neutral-100: #FAFAFA;
-    --color-neutral-200: #F2F2F2;
+    --color-neutral-100: #F5F5F5;
     --color-neutral-300: #e1e1e1;
     --color-neutral-700: #9FA2B0;
-    --color-neutral-800: #4A4B53;
     --color-neutral-900: #2E2E2E;
 
     --color-green: #3CC64A;
+    --color-red: #ff5c4a;
 
     --border-radius: 12px;
   }
@@ -43,6 +42,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button {
+    background: transparent;
+    border: none;
     cursor: pointer;
 
     font-weight: 700;
@@ -51,6 +52,41 @@ const GlobalStyle = createGlobalStyle`
   [disabled] {
     opacity: 0.6;
     cursor: disabled;
+  }
+
+  .react-modal-overlay {
+    background-color: rgba(0,0,0, .5);
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .react-modal-content {
+    width: 100%;
+    max-width: 576px;
+    background: #FFF;
+    padding: 4rem;
+    position: relative;
+    border-radius: var(--border-radius);
+    outline: none;
+  }
+
+  .react-modal-closer {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
+    }
   }
 
   .container {
@@ -85,6 +121,54 @@ const GlobalStyle = createGlobalStyle`
 
   .c--neutral-900 {
     color: var(--color-neutral-900);
+  }
+
+  .c--neutral-800 {
+    color: var(--color-neutral-800);
+  }
+
+  .c--neutral-700 {
+    color: var(--color-neutral-700);
+  }
+
+  .c--neutral-300 {
+    color: var(--color-neutral-300);
+  }
+
+  .c--neutral-200 {
+    color: var(--color-neutral-200);
+  }
+
+  .c--neutral-100 {
+    color: var(--color-neutral-100);
+  }
+
+  .mb--8 {
+    margin-bottom: 8px;
+  }
+
+  .mb--16 {
+    margin-bottom: 16px;
+  }
+
+  .mb--24 {
+    margin-bottom: 24px;
+  }
+
+  .fs--small {
+    font-size: 1rem;
+  }
+
+  .fs--normal {
+    font-size: 1.2rem;
+  }
+
+  .fs--medium {
+    font-size: 1.4rem;
+  }
+
+  .fs--large {
+    font-size: 1.8rem;
   }
 `
 

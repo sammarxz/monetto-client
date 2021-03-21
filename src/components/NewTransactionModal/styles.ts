@@ -1,5 +1,15 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.div``
+const Wrapper = styled.form``
 
-export { Wrapper }
+const Title = styled.h2`
+  font-size: 1.5rem;
+`
+
+const TransactionType = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+`
+
+export { Wrapper, Title, TransactionType }
