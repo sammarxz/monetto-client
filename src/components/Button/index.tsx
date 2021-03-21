@@ -9,6 +9,11 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
 
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(60, 198, 74, 0.5);
+  }
+
   ${(props) => css`
     background-color: var(--color-${props.color});
   `}

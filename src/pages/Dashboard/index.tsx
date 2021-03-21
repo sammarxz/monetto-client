@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import Modal from 'react-modal'
 
 import { api } from '../../services/api'
 
@@ -13,40 +14,52 @@ import { Box, Button, Input, Transaction } from '../../components'
 
 import * as S from './styles'
 
+Modal.setAppElement('#root')
+
 function Dashboard() {
+  const [isModalTransactionOpen, setModalTransactionOpen] = useState(false)
+
   useEffect(() => {
     api.get('/transactions').then((response) => console.log(response.data))
   }, [])
 
+  function handleOpenNewTransactionModal() {
+    setModalTransactionOpen(true)
+  }
+
+  function handleCloseNewTransactionModal() {
+    setModalTransactionOpen(false)
+  }
+
   return (
     <S.Wrapper>
       <S.Balance>
-        <span>Balance</span>
+        <span>Saldo Atual:</span>
         R$ 4.000,00
       </S.Balance>
       <S.Infos>
         <S.Form>
-          <Input name="search" type="text" placeholder="Search...">
+          <Input name="search" type="text" placeholder="Buscar...">
             <FiSearch />
           </Input>
         </S.Form>
         <Box>
           <span className="d--flex ai--center">
             <FiArrowDownLeft className="c--green" />
-            Income:
+            Entrada:
           </span>
           <h3>R$ 4.500,00</h3>
         </Box>
         <Box>
           <span className="d--flex ai--center">
             <FiArrowUpRight className="c--neutral-900" />
-            Outcome:
+            Saída:
           </span>
           <h3>R$ 1.500,00</h3>
         </Box>
-        <Button color="green">
+        <Button color="green" onClick={handleOpenNewTransactionModal}>
           <FiPlus />
-          Transaction
+          Transação
         </Button>
       </S.Infos>
       <S.Transactions>
@@ -58,6 +71,12 @@ function Dashboard() {
           type="outome"
         />
       </S.Transactions>
+      <Modal
+        isOpen={isModalTransactionOpen}
+        onRequestClose={handleCloseNewTransactionModal}
+      >
+        <h2>Cadastrar Transação</h2>
+      </Modal>
     </S.Wrapper>
   )
 }

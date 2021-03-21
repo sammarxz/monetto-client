@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.section``
+const Wrapper = styled.section`
+  margin-top: 4rem;
+`
 
 const Balance = styled.h1`
   font-size: 3.6rem;

@@ -21,6 +21,11 @@ const Input = styled.input`
   border-radius: var(--border-radius);
   border: 1px solid transparent;
   width: 100%;
+
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(60, 198, 74, 0.5);
+  }
 `
 
 export { Wrapper, Input }
