@@ -41,6 +41,7 @@ const Form = styled.form`
 
 const Transactions = styled.div`
   margin-top: 3rem;
+  margin-bottom: 4rem;
 `
 
 export { Wrapper, Balance, Infos, Form, Transactions }

@@ -8,6 +8,8 @@ import {
 
 import { TransactionsContext } from '../../TransactionsContext'
 
+import { formatCurrency } from '../../utils'
+
 import {
   Box,
   Button,
@@ -22,7 +24,24 @@ function Dashboard() {
   const { transactions } = useContext(TransactionsContext)
   const [isModalTransactionOpen, setModalTransactionOpen] = useState(false)
 
-  console.log(transactions)
+  const summary = transactions.reduce(
+    (acc, transaction) => {
+      if (transaction.type === 'income') {
+        acc.income += transaction.value
+        acc.balance += transaction.value
+      } else {
+        acc.outcome += transaction.value
+        acc.balance -= transaction.value
+      }
+
+      return acc
+    },
+    {
+      income: 0,
+      outcome: 0,
+      balance: 0
+    }
+  )
 
   function handleOpenNewTransactionModal() {
     setModalTransactionOpen(true)
@@ -36,7 +55,7 @@ function Dashboard() {
     <S.Wrapper>
       <S.Balance>
         <span className="c--neutral-800">Saldo Atual:</span>
-        R$ 4.000,00
+        {formatCurrency(summary.balance)}
       </S.Balance>
       <S.Infos>
         <S.Form>
@@ -49,14 +68,14 @@ function Dashboard() {
             <FiArrowDownLeft className="c--green" />
             Entrada:
           </span>
-          <h3>R$ 4.500,00</h3>
+          <h3>{formatCurrency(summary.income)}</h3>
         </Box>
         <Box>
           <span className="d--flex ai--center fw--medium">
             <FiArrowUpRight className="c--neutral-900" />
             Saída:
           </span>
-          <h3>R$ 1.500,00</h3>
+          <h3>{formatCurrency(summary.outcome)}</h3>
         </Box>
         <Button color="green" onClick={handleOpenNewTransactionModal}>
           <FiPlus />

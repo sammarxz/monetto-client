@@ -2,6 +2,8 @@ import { useContext } from 'react'
 
 import { TransactionsContext } from '../../TransactionsContext'
 
+import { formatCurrency } from '../../utils'
+
 import * as S from './styles'
 
 type TransactionTableProps = {
@@ -13,10 +15,7 @@ const TransactionTable = ({ className }: TransactionTableProps) => {
 
   const formatValue = (value: number, type: string) => {
     const p = type === 'income' ? '+' : '-'
-    const formatedValue = new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(value)
+    const formatedValue = formatCurrency(value)
 
     return `${p} ${formatedValue}`
   }
