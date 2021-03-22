@@ -5,6 +5,7 @@ const GlobalStyle = createGlobalStyle`
     --color-neutral-100: #F5F5F5;
     --color-neutral-300: #e1e1e1;
     --color-neutral-700: #9FA2B0;
+    --color-neutral-800: #4A4B53;
     --color-neutral-900: #2E2E2E;
 
     --color-green: #3CC64A;
@@ -116,23 +117,23 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .c--green {
-    color: var(--color-green);
+    color: var(--color-green) !important;
+  }
+
+  .c--red {
+    color: var(--color-red) !important;
   }
 
   .c--neutral-900 {
-    color: var(--color-neutral-900);
+    color: var(--color-neutral-900) !important;
   }
 
   .c--neutral-800 {
-    color: var(--color-neutral-800);
+    color: var(----color-neutral-800) !important;
   }
 
   .c--neutral-700 {
     color: var(--color-neutral-700);
-  }
-
-  .c--neutral-300 {
-    color: var(--color-neutral-300);
   }
 
   .c--neutral-200 {

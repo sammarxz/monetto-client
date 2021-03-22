@@ -39,7 +39,7 @@ const Form = styled.form`
   flex: 1;
 `
 
-const Transactions = styled.ul`
+const Transactions = styled.div`
   margin-top: 3rem;
 `
 
