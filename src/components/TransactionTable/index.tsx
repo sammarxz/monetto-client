@@ -1,6 +1,4 @@
-import { useContext } from 'react'
-
-import { TransactionsContext } from '../../TransactionsContext'
+import { useTransactions } from '../../hooks/useTransactions'
 
 import { formatCurrency } from '../../utils'
 
@@ -11,7 +9,7 @@ type TransactionTableProps = {
 }
 
 const TransactionTable = ({ className }: TransactionTableProps) => {
-  const { transactions } = useContext(TransactionsContext)
+  const { transactions } = useTransactions()
 
   const formatValue = (value: number, type: string) => {
     const p = type === 'income' ? '+' : '-'

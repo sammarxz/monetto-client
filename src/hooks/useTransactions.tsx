@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { createContext } from 'react'
 
-import { api } from './services/api'
+import { api } from '../services/api'
 
 type Transaction = {
   id: number
@@ -58,4 +58,10 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps) => {
   )
 }
 
-export { TransactionsContext, TransactionsProvider }
+function useTransactions() {
+  const context = useContext(TransactionsContext)
+
+  return context
+}
+
+export { TransactionsProvider, useTransactions }

@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import {
   FiArrowUpRight,
   FiArrowDownLeft,
@@ -6,7 +6,7 @@ import {
   FiSearch
 } from 'react-icons/fi'
 
-import { TransactionsContext } from '../../TransactionsContext'
+import { useTransactions } from '../../hooks/useTransactions'
 
 import { formatCurrency } from '../../utils'
 
@@ -21,7 +21,7 @@ import {
 import * as S from './styles'
 
 function Dashboard() {
-  const { transactions } = useContext(TransactionsContext)
+  const { transactions } = useTransactions()
   const [isModalTransactionOpen, setModalTransactionOpen] = useState(false)
 
   const summary = transactions.reduce(

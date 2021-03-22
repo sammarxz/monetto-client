@@ -1,11 +1,11 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import Modal from 'react-modal'
 import { FiX } from 'react-icons/fi'
 import { FiMinus, FiPlus } from 'react-icons/fi'
 
 import { Input, Button } from '../'
 
-import { TransactionsContext } from '../../TransactionsContext'
+import { useTransactions } from '../../hooks/useTransactions'
 
 import * as S from './styles'
 
@@ -20,7 +20,7 @@ function NewTransactionModal({
   isOpen,
   onRequestClose
 }: NewTransactionModalProps) {
-  const { createTransaction } = useContext(TransactionsContext)
+  const { createTransaction } = useTransactions()
 
   const [title, setTitle] = useState('')
   const [value, setValue] = useState(0)

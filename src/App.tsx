@@ -1,6 +1,6 @@
 import { GlobalStyle } from './styles/global'
 import { Routes } from './routes'
-import { TransactionsProvider } from './TransactionsContext'
+import { TransactionsProvider } from './hooks/useTransactions'
 
 const App = (): JSX.Element => (
   <TransactionsProvider>
