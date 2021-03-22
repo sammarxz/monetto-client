@@ -50,7 +50,9 @@ function NewTransactionModal({
     { value: 'Saúde', label: 'Saúde' },
     { value: 'Trabalho', label: 'Trabalho' },
     { value: 'Transporte', label: 'Transporte' },
-    { value: 'Viagem', label: 'Viagem' }
+    { value: 'Viagem', label: 'Viagem' },
+    { value: 'Dívidas ou Aluguel', label: 'Dívidas ou Aluguel' },
+    { value: 'Outros', label: 'Outros' }
   ]
 
   const handleChangeType = (e: React.MouseEvent, t: string) => {

@@ -16,7 +16,7 @@ createServer({
           title: 'Freela para Aerolab',
           value: 4000,
           type: 'income',
-          category: 'Salário ou trabalho extra',
+          category: 'Trabalho',
           createdAt: new Date('2021-02-12 10:00:00')
         },
         {

@@ -6,7 +6,7 @@ import {
   FiSearch
 } from 'react-icons/fi'
 
-import { useTransactions } from '../../hooks/useTransactions'
+import { Transaction, useTransactions } from '../../hooks/useTransactions'
 
 import { formatCurrency } from '../../utils'
 
@@ -21,10 +21,22 @@ import {
 import * as S from './styles'
 
 function Dashboard() {
-  const { transactions } = useTransactions()
+  const { transactions, searchTransaction } = useTransactions()
   const [isModalTransactionOpen, setModalTransactionOpen] = useState(false)
 
-  const summary = transactions.reduce(
+  let localTransactions: Transaction[] = JSON.parse(
+    localStorage.getItem('transactions') || '{}'
+  )
+
+  if (
+    localTransactions &&
+    Object.keys(localTransactions).length === 0 &&
+    localTransactions.constructor === Object
+  ) {
+    localTransactions = transactions
+  }
+
+  const summary = localTransactions.reduce(
     (acc, transaction) => {
       if (transaction.type === 'income') {
         acc.income += transaction.value
@@ -51,6 +63,11 @@ function Dashboard() {
     setModalTransactionOpen(false)
   }
 
+  function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = e.target
+    searchTransaction(value)
+  }
+
   return (
     <S.Wrapper>
       <S.Balance>
@@ -59,7 +76,12 @@ function Dashboard() {
       </S.Balance>
       <S.Infos>
         <S.Form>
-          <Input name="search" type="text" placeholder="Buscar...">
+          <Input
+            name="search"
+            type="search"
+            placeholder="Buscar..."
+            onChange={(e) => handleSearchChange(e)}
+          >
             <FiSearch className="c--neutral-700" />
           </Input>
         </S.Form>

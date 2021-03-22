@@ -4,7 +4,7 @@ import { createContext } from 'react'
 
 import { api } from '../services/api'
 
-type Transaction = {
+export type Transaction = {
   id: number
   title: string
   value: number
@@ -22,6 +22,7 @@ type TransactionsProviderProps = {
 interface TransactionsContextData {
   transactions: Transaction[]
   createTransaction: (transaction: TransactionInput) => Promise<void>
+  searchTransaction: (query: string) => Promise<void>
 }
 
 const TransactionsContext = createContext<TransactionsContextData>(
@@ -30,11 +31,24 @@ const TransactionsContext = createContext<TransactionsContextData>(
 
 const TransactionsProvider = ({ children }: TransactionsProviderProps) => {
   const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [defaultTransactions, setDefaultTransactions] = useState<Transaction[]>(
+    []
+  )
 
   useEffect(() => {
-    api
-      .get('/transactions')
-      .then((response) => setTransactions(response.data.transactions))
+    api.get('/transactions').then(({ data: { transactions } }) => {
+      if (!localStorage.getItem('transactions')) {
+        setTransactions(transactions)
+        setDefaultTransactions(transactions)
+        localStorage.setItem('transactions', JSON.stringify(transactions))
+      } else {
+        const localTransactions: Transaction[] = JSON.parse(
+          localStorage.getItem('transactions') || '{}'
+        )
+        setTransactions(localTransactions)
+        setDefaultTransactions(localTransactions)
+      }
+    })
   }, [])
 
   async function createTransaction(transactionInput: TransactionInput) {
@@ -44,13 +58,27 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps) => {
     })
 
     setTransactions([...transactions, response.data.transactions])
+    setDefaultTransactions([...transactions, response.data.transactions])
+    localStorage.setItem(
+      'transactions',
+      JSON.stringify([...transactions, response.data.transactions])
+    )
+  }
+
+  async function searchTransaction(query: string) {
+    const filteredTransactions = defaultTransactions.filter((transaction) =>
+      transaction.title.toLowerCase().includes(query.toLowerCase())
+    )
+
+    setTransactions(filteredTransactions)
   }
 
   return (
     <TransactionsContext.Provider
       value={{
         transactions,
-        createTransaction
+        createTransaction,
+        searchTransaction
       }}
     >
       {children}
