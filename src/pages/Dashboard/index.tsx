@@ -1,11 +1,12 @@
-import { useState } from 'react'
-
+import { useState, useContext } from 'react'
 import {
   FiArrowUpRight,
   FiArrowDownLeft,
   FiPlus,
   FiSearch
 } from 'react-icons/fi'
+
+import { TransactionsContext } from '../../TransactionsContext'
 
 import {
   Box,
@@ -18,7 +19,10 @@ import {
 import * as S from './styles'
 
 function Dashboard() {
+  const { transactions } = useContext(TransactionsContext)
   const [isModalTransactionOpen, setModalTransactionOpen] = useState(false)
+
+  console.log(transactions)
 
   function handleOpenNewTransactionModal() {
     setModalTransactionOpen(true)

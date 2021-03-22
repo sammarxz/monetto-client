@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useContext } from 'react'
 
-import { api } from '../../services/api'
+import { TransactionsContext } from '../../TransactionsContext'
 
 import * as S from './styles'
 
@@ -8,24 +8,8 @@ type TransactionTableProps = {
   className?: string
 }
 
-type TransactionProps = {
-  id: number
-  title: string
-  value: number
-  type: string
-  category: string
-  createdAt: string
-  className?: string
-}
-
 const TransactionTable = ({ className }: TransactionTableProps) => {
-  const [transactions, setTransactions] = useState<TransactionProps[]>([])
-
-  useEffect(() => {
-    api
-      .get('/transactions')
-      .then((response) => setTransactions(response.data.transactions))
-  }, [])
+  const { transactions } = useContext(TransactionsContext)
 
   const formatValue = (value: number, type: string) => {
     const p = type === 'income' ? '+' : '-'

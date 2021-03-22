@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Modal from 'react-modal'
 import { FiX } from 'react-icons/fi'
 import { FiMinus, FiPlus } from 'react-icons/fi'
 
 import { Input, Button } from '../'
 
-import { api } from '../../services/api'
+import { TransactionsContext } from '../../TransactionsContext'
 
 import * as S from './styles'
 
@@ -20,6 +20,8 @@ function NewTransactionModal({
   isOpen,
   onRequestClose
 }: NewTransactionModalProps) {
+  const { createTransaction } = useContext(TransactionsContext)
+
   const [title, setTitle] = useState('')
   const [value, setValue] = useState(0)
   const [type, setType] = useState('')
@@ -30,17 +32,25 @@ function NewTransactionModal({
     setType(t)
   }
 
-  const handleCreateNewTransaction = (e: React.FormEvent) => {
+  const resetInputs = () => {
+    setTitle('')
+    setValue(0)
+    setType('')
+    setCategory('')
+  }
+
+  const handleCreateNewTransaction = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const data = {
+    await createTransaction({
       title,
       value,
       category,
       type
-    }
+    })
 
-    api.post('/transactions', data)
+    resetInputs()
+    onRequestClose()
   }
 
   return (
