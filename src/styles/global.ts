@@ -90,6 +90,20 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  .react-select-container__indicator-separator {
+    display: none !important;
+  }
+
+  .css-1tenkmm-control {
+    border: 1px solid var(--color-green) !important;
+    box-shadow: 0 0 0 3px rgba(60, 198, 74, 0.5) !important;
+    transition: all .3s ease !important;
+  }
+
+  .react-select-container__placeholder {
+    color: var(--color-neutral-700) !important;
+  }
+
   .container {
     max-width: 980px;
     margin: 0 auto;

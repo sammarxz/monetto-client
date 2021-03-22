@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Modal from 'react-modal'
+import Select from 'react-select'
 import { FiX } from 'react-icons/fi'
 import { FiMinus, FiPlus } from 'react-icons/fi'
 
@@ -16,6 +17,11 @@ type NewTransactionModalProps = {
   onRequestClose: () => void
 }
 
+type SelectType = {
+  value: string
+  label: string
+}
+
 function NewTransactionModal({
   isOpen,
   onRequestClose
@@ -26,6 +32,26 @@ function NewTransactionModal({
   const [value, setValue] = useState(0)
   const [type, setType] = useState('')
   const [category, setCategory] = useState('')
+
+  const categories = [
+    { value: 'Alimentação', label: 'Alimentação' },
+    { value: 'Assinaturas e serviços', label: 'Assinaturas e serviços' },
+    { value: 'Bares e restaurantes', label: 'Bares e restaurantes' },
+    { value: 'Contas da casa', label: 'Contas da casa' },
+    { value: 'Compras', label: 'Compras' },
+    { value: 'Cuidados pessoais', label: 'Cuidados pessoais' },
+    { value: 'Educação', label: 'Educação' },
+    { value: 'Investimentos', label: 'Investimentos' },
+    { value: 'Lazer e hobbies', label: 'Lazer e hobbies' },
+    { value: 'Mercado', label: 'Mercado' },
+    { value: 'Pets', label: 'Pets' },
+    { value: 'Presentes', label: 'Presentes' },
+    { value: 'Roupas', label: 'Roupas' },
+    { value: 'Saúde', label: 'Saúde' },
+    { value: 'Trabalho', label: 'Trabalho' },
+    { value: 'Transporte', label: 'Transporte' },
+    { value: 'Viagem', label: 'Viagem' }
+  ]
 
   const handleChangeType = (e: React.MouseEvent, t: string) => {
     e.preventDefault()
@@ -42,15 +68,23 @@ function NewTransactionModal({
   const handleCreateNewTransaction = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    await createTransaction({
-      title,
-      value,
-      category,
-      type
-    })
+    if (title && value && category && type) {
+      await createTransaction({
+        title,
+        value,
+        category,
+        type
+      })
 
-    resetInputs()
-    onRequestClose()
+      resetInputs()
+      onRequestClose()
+    }
+  }
+
+  const handleSelectChange = (selectedOption: SelectType | null) => {
+    if (null !== selectedOption) {
+      setCategory(selectedOption.value)
+    }
   }
 
   return (
@@ -72,6 +106,7 @@ function NewTransactionModal({
           className="mb--16"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
         <Input
           type="number"
@@ -80,6 +115,7 @@ function NewTransactionModal({
           className="mb--16"
           value={value}
           onChange={(e) => setValue(+e.target.value)}
+          required
         />
         <S.TransactionType className="mb--16">
           <Button
@@ -103,13 +139,43 @@ function NewTransactionModal({
             <span>Despesa</span>
           </Button>
         </S.TransactionType>
-        <Input
-          type="text"
-          name="category"
-          placeholder="Categoria"
+        <Select
+          options={categories}
           className="mb--16"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          classNamePrefix="react-select-container"
+          placeholder="Categoria"
+          onChange={(o) => handleSelectChange(o)}
+          required
+          styles={{
+            control: (provided) => ({
+              ...provided,
+              height: 54,
+              borderRadius: 12,
+              padding: 6,
+              backgroundColor: '#F5F5F5',
+              border: 'none',
+              color: '#2e2e2e'
+            }),
+            option: (provided, state) => ({
+              ...provided,
+              backgroundColor: state.isSelected ? '#e1e1e1' : '#fff',
+              color: '#2E2E2E',
+              padding: 16
+            }),
+            singleValue: (base) => ({
+              ...base,
+              padding: 6
+            })
+          }}
+          theme={(theme) => ({
+            ...theme,
+            colors: {
+              ...theme.colors,
+              primary25: '#a8ebae',
+              primary: '#3CC64A',
+              primary50: 'rgba(0,128,0,0.1)'
+            }
+          })}
         />
         <Button type="submit" color="green" fullWidth>
           Cadastrar

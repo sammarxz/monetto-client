@@ -17,7 +17,7 @@ const Wrapper = styled.table`
     border-bottom: 2px solid var(--color-neutral-100);
 
     &:first-child {
-      color: var(--900);
+      color: var(--color-neutral-900);
     }
   }
 `
