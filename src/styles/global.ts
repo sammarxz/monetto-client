@@ -150,8 +150,8 @@ const GlobalStyle = createGlobalStyle`
     color: var(--color-neutral-700);
   }
 
-  .c--neutral-200 {
-    color: var(--color-neutral-200);
+  .c--neutral-300 {
+    color: var(--color-neutral-300);
   }
 
   .c--neutral-100 {

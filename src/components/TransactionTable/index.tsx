@@ -1,3 +1,5 @@
+import { FiX } from 'react-icons/fi'
+
 import { useTransactions } from '../../hooks/useTransactions'
 
 import { formatCurrency } from '../../utils'
@@ -9,7 +11,7 @@ type TransactionTableProps = {
 }
 
 const TransactionTable = ({ className }: TransactionTableProps) => {
-  const { transactions } = useTransactions()
+  const { transactions, deleteTransaction } = useTransactions()
 
   const formatValue = (value: number, type: string) => {
     const p = type === 'income' ? '+' : '-'
@@ -26,6 +28,7 @@ const TransactionTable = ({ className }: TransactionTableProps) => {
           <th>Valor</th>
           <th>Categoria</th>
           <th>Data</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -38,6 +41,11 @@ const TransactionTable = ({ className }: TransactionTableProps) => {
             <td>{category}</td>
             <td>
               {new Intl.DateTimeFormat('pt-BR').format(new Date(createdAt))}
+            </td>
+            <td>
+              <button onClick={() => deleteTransaction(id)}>
+                <FiX className="c--neutral-300" />
+              </button>
             </td>
           </tr>
         ))}

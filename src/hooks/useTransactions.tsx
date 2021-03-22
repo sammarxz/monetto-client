@@ -22,7 +22,8 @@ type TransactionsProviderProps = {
 interface TransactionsContextData {
   transactions: Transaction[]
   createTransaction: (transaction: TransactionInput) => Promise<void>
-  searchTransaction: (query: string) => Promise<void>
+  searchTransaction: (query: string) => void
+  deleteTransaction: (id: number | string) => void
 }
 
 const TransactionsContext = createContext<TransactionsContextData>(
@@ -65,7 +66,7 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps) => {
     )
   }
 
-  async function searchTransaction(query: string) {
+  function searchTransaction(query: string) {
     const filteredTransactions = defaultTransactions.filter((transaction) =>
       transaction.title.toLowerCase().includes(query.toLowerCase())
     )
@@ -73,12 +74,22 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps) => {
     setTransactions(filteredTransactions)
   }
 
+  function deleteTransaction(id: number | string) {
+    const newTransactions = transactions.filter(
+      (transaction) => transaction.id !== id
+    )
+    setTransactions(newTransactions)
+    setDefaultTransactions(newTransactions)
+    localStorage.setItem('transactions', JSON.stringify(newTransactions))
+  }
+
   return (
     <TransactionsContext.Provider
       value={{
         transactions,
         createTransaction,
-        searchTransaction
+        searchTransaction,
+        deleteTransaction
       }}
     >
       {children}
